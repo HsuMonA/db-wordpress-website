@@ -5,6 +5,7 @@
     <meta charset="<?php bloginfo('charset'); ?>">
     <title><?php wp_title('|', true, 'right'); ?></title>
     <link rel="stylesheet" href="<?php echo esc_url(get_stylesheet_uri()); ?>" type="text/css" />
+    <link rel="stylesheet" href="wp-content\themes\db\node_modules\@db-ui\core\dist\css\enterprise\db-ui-core.css" type="text/css">
     <?php wp_head(); ?>
 </head>
 

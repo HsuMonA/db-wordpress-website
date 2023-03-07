@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@db-ui/core": "^2.8.1"
+  }
+}
