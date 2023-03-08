@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@db-ui/core": "^2.8.1"
+    "@db-ui/core": "^2.8.1",
+    "chart.js": "^4.2.1"
   }
 }

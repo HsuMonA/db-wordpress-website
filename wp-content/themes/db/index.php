@@ -18,13 +18,14 @@
                     <use href="wp-content/themes/db/node_modules/@db-ui/core/dist/images/db_logo.svg#logo"></use>
                 </svg>
                 <!-- [html-validate-disable-next heading-level, no-unused-disable -- we're doing some simple demonstration simplification here] -->
-                <h2 class="elm-headline " data-pulse>
+                <h1 class="elm-headline " data-pulse>
                     <?php bloginfo('name'); ?>
-                </h2>
+                </h1>
                 <p>
                     <?php bloginfo('description'); ?>
                 </p>
             </div>
+            
             <?php if (have_posts()):
                 while (have_posts()):
                     the_post(); ?>
@@ -56,6 +57,44 @@
             <?php else: ?>
                 <p>No posts found. :(</p>
             <?php endif; ?>
+            
+            <?php
+                global $wpdb;
+                $result = $wpdb->get_results("SELECT * FROM kennzahlen WHERE kennzahl_id = '1'"); // fetch data from database from php wordpress
+            ?>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+
+            <script src="wp-content/themes/db/node_modules/chart.js/dist/chart.umd.js"></script>
+            <script>
+            const jsObject = JSON.parse(`<?= json_encode($result) ?>`) // convert php arrays to js
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                labels: jsObject.map(row => row.datum),
+                datasets: [{
+                        label: 'wert_plan',
+                        data: jsObject.map(row => row.wert_plan),
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'wert_ist',
+                        data: jsObject.map(row => row.wert_ist),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                        }
+                    }
+                }
+            });
+            </script>
             <?php wp_footer(); ?>
         <main class="rea-main ">
     </body>
